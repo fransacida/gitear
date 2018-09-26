@@ -20,7 +20,7 @@ get_org_list_hooks <- function(org, base_url, api_key){
         try({
             base_url <- sub("/$", "", base_url)
             gitea_url <- file.path(base_url, "api/v1", sub("^/", "", "/orgs"), org,"hooks")
-            
+
             authorization <- paste("token", api_key)
             r <- GET(gitea_url, add_headers(Authorization = authorization), accept_json())
             
