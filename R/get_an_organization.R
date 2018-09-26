@@ -23,7 +23,7 @@ get_an_organization <- function(org, base_url, api_key){
 
             authorization <- paste("token", api_key)
             r <- GET(gitea_url, add_headers(Authorization = authorization), accept_json())
-            
+
             # To convert http errors to R errors
             stop_for_status(r)
             
