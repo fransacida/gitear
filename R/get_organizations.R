@@ -7,8 +7,6 @@
 #' @param base_url The base URL for your gitea server (no trailing '/')
 #' @param api_key The user's API token key for the gitea service
 #'
-#' @examples
-#' get_organizations("https://try.gitea.io", "token 6ebcaefdaaf06aa7f59b4efc5faa4bcf1b56cfb1")
 #'@export
 get_organizations <- function(base_url, api_key){
     if (missing(base_url)) {
@@ -19,7 +17,9 @@ get_organizations <- function(base_url, api_key){
         try({
             base_url <- sub("/$", "", base_url)
             gitea_url <- file.path(base_url, "api/v1", sub("^/", "", "/user/orgs"))
-            r <- GET(gitea_url, add_headers(Authorization=api_key), accept_json())
+            
+            authorization <- paste("token", api_key)
+            r <- GET(gitea_url, add_headers(Authorization = authorization), accept_json())
 
             # To convert http errors to R errors
             stop_for_status(r)
@@ -29,5 +29,3 @@ get_organizations <- function(base_url, api_key){
             return(content_organizations)
         })
 }
-
-
