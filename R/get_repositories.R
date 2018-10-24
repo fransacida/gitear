@@ -19,7 +19,9 @@ get_repositories <- function(base_url, api_key){
         try({
             base_url <- sub("/$", "", base_url)
             gitea_url <- file.path(base_url, "api/v1", sub("^/", "", "/repos/search"))
-            r <- GET(gitea_url, add_headers(Authorization=api_key), accept_json())
+
+            authorization <- paste("token", api_key)
+            r <- GET(gitea_url, add_headers(Authorization = authorization), accept_json())
 
             # To convert http errors to R errors
             stop_for_status(r)
@@ -29,5 +31,3 @@ get_repositories <- function(base_url, api_key){
             return(content_repositories)
         })
 }
-
-

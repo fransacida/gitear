@@ -31,3 +31,5 @@ test_that("The calculation of obtaining version gives the expected result", {
     expect_equal(TRUE, !is.null(value_version))
     expect_that(value_version, is_a("list"))
 })
+
+get_repositories(base_url, api_key)
